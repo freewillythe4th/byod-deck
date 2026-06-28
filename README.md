@@ -21,3 +21,5 @@ The deck is live at https://deck-nine-psi.vercel.app . When you save a change, t
 - Fonts: Instrument Serif for headings, Inter for body. No other fonts, no monospace.
 - Calm and editorial, generous white space, one idea per slide.
 - Design only. Do not change the words or the numbers unless Will asks.
+
+<!-- edit test metha-pipeline -->
