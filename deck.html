@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bring Your Own Deals - Will Mulholland for beehiiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1F1511; --cream: #F2EDE3; --cream-soft: #EBE5D8; --cream-dim: #E4DCCD; --white: #FFFFFF;
+    --gray-mid: #5C4F47; --gray-light: #8B7E73;
+    --accent: #2563EB; --accent-deep: #1E3A8A; --accent-soft: #DBEAFE;
+    --warm: #C0573F; --warm-soft: #F2E2DC;
+    --hair: rgba(31,21,17,0.10);
+    --offset: 0 1px 2px rgba(31,21,17,0.05), 0 12px 28px -10px rgba(31,21,17,0.16); --offset-sm: 0 1px 2px rgba(31,21,17,0.04), 0 6px 16px -8px rgba(31,21,17,0.12);
+    --ease: cubic-bezier(0.16,1,0.3,1);
+    --serif: 'Instrument Serif', Georgia, serif; --sans: 'Inter', system-ui, sans-serif;
+    --mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --title: clamp(2.2rem, min(6.4vw, 10vh), 5.8rem);
+    --h1: clamp(1.7rem, min(4.6vw, 7.6vh), 4rem);
+    --body: clamp(0.98rem, 1.4vw, 1.35rem);
+    --small: clamp(0.72rem, 0.95vw, 0.92rem);
+    --pad: clamp(1.7rem, 5vw, 5.5rem);
+    --gap: clamp(0.7rem, min(2vw, 2.4vh), 1.5rem);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow-x: hidden; }
+  html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.5; letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; }
+
+  main.deck { display: block; }
+  .slide { width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; scroll-snap-align: start; display: flex; flex-direction: column; position: relative; background: var(--cream); }
+  .slide.alt { background: var(--cream-soft); }
+  .slide.fin { background: var(--ink); color: var(--cream); }
+  .slide-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: var(--pad); padding-top: max(var(--pad), 5rem); padding-bottom: max(var(--pad), 4.6rem); gap: var(--gap); max-height: 100%; }
+
+  .slide.cover::before, .slide.fin::before { content: ''; position: absolute; width: 56vw; height: 56vw; max-width: 720px; max-height: 720px; border-radius: 50%; right: -14vw; top: -20vw; pointer-events: none; background: radial-gradient(circle, rgba(37,99,235,0.14) 0%, rgba(37,99,235,0.04) 48%, transparent 72%); }
+  .slide.fin::before { background: radial-gradient(circle, rgba(37,99,235,0.28) 0%, rgba(37,99,235,0.05) 50%, transparent 72%); }
+
+  .topbar, .footer { position: absolute; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: clamp(1rem,1.8vw,1.5rem) var(--pad); font-family: var(--sans); font-size: var(--small); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5; color: var(--gray-mid); }
+  .topbar { top: 0; } .footer { bottom: 0; }
+  .slide.fin .topbar, .slide.fin .footer { color: rgba(242,237,227,0.66); }
+  .brand-mark { font-weight: 700; letter-spacing: 0.12em; }
+
+  .eyebrow { font-family: var(--sans); font-size: var(--small); text-transform: uppercase; letter-spacing: 0.13em; font-weight: 700; color: var(--accent); }
+  h1.title { font-family: var(--serif); font-weight: 400; font-size: var(--title); line-height: 0.98; letter-spacing: -0.025em; margin: 0; max-width: 17ch; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: var(--h1); line-height: 1.0; letter-spacing: -0.025em; margin: 0; max-width: 22ch; }
+  h1 em, .title em { font-style: italic; color: var(--accent); }
+  .slide.fin h1 em { color: #7FB0FF; }
+  p { font-size: var(--body); line-height: 1.5; margin: 0; max-width: 60ch; }
+  .lead { font-size: clamp(1.05rem, 1.65vw, 1.55rem); max-width: 62ch; }
+  .sub { color: var(--gray-mid); } .slide.fin .sub { color: rgba(242,237,227,0.78); }
+  .muted { color: var(--gray-mid); font-size: clamp(0.9rem,1.2vw,1.15rem); } .slide.fin .muted { color: rgba(242,237,227,0.64); }
+  .accent-bar { width: clamp(56px,6vw,92px); height: 4px; border: 0; border-radius: 4px; background: var(--accent); }
+  .cover-by { font-family: var(--sans); font-size: clamp(0.85rem,1.05vw,1.02rem); font-weight: 500; letter-spacing: 0.01em; color: rgba(242,237,227,0.82); }
+
+  .bigline { font-family: var(--serif); font-size: clamp(2.1rem,5vw,4.4rem); line-height: 1.02; letter-spacing: -0.02em; max-width: 22ch; }
+  .bigline em { font-style: italic; color: var(--accent); } .slide.fin .bigline em { color: #7FB0FF; }
+
+  /* points */
+  .points { display: flex; flex-direction: column; gap: clamp(0.5rem,1vw,0.85rem); max-width: 66ch; margin: 0; padding: 0; list-style: none; }
+  .points li { position: relative; padding-left: 1.5em; font-size: clamp(1rem,1.4vw,1.35rem); line-height: 1.4; color: var(--ink); }
+  .points li::before { content: ''; position: absolute; left: 0.1em; top: 0.55em; width: 0.5em; height: 0.5em; border-radius: 2px; background: var(--accent); }
+  .points li b { font-weight: 700; }
+  .slide.fin .points li { color: var(--cream); } .slide.fin .points li::before { background: #7FB0FF; }
+
+  /* two-panel contrast */
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem,1.5vw,1.4rem); max-width: 96ch; }
+  .panel { background: var(--white); border: 1px solid var(--hair); border-radius: 16px; box-shadow: var(--offset); padding: clamp(1.1rem,1.8vw,1.6rem); display: flex; flex-direction: column; gap: 0.5rem; }
+  .panel .n { font-family: var(--sans); font-size: var(--small); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--accent); }
+  .panel h3 { font-weight: 700; font-size: clamp(1.05rem,1.6vw,1.45rem); letter-spacing: -0.02em; margin: 0; }
+  .panel p, .panel li { font-size: clamp(0.88rem,1.12vw,1.08rem); color: var(--gray-mid); max-width: none; }
+  .panel ul { margin: 0; padding-left: 1.05em; display: flex; flex-direction: column; gap: 0.3rem; }
+  .panel.good { border-top: 3px solid var(--accent); } .panel.bad { border-top: 3px solid var(--gray-light); } .panel.bad .n { color: var(--gray-mid); }
+  @media (max-width: 820px){ .vs { grid-template-columns: 1fr; } }
+
+  /* ink band callout */
+  .band { background: var(--ink); color: var(--cream); border-radius: 16px; padding: clamp(1.1rem,1.9vw,1.6rem) clamp(1.3rem,2.2vw,2rem); }
+  .band .punch { font-family: var(--serif); font-size: clamp(1.4rem,2.9vw,2.5rem); line-height: 1.08; color: var(--white); }
+  .band .punch em { font-style: italic; color: #7FB0FF; }
+  .slide.fin .band { background: rgba(242,237,227,0.06); border: 1px solid rgba(242,237,227,0.16); }
+
+  /* value stack */
+  .stack { display: flex; flex-direction: column; gap: 0; max-width: 80ch; background: var(--white); border: 1px solid var(--hair); border-radius: 16px; box-shadow: var(--offset); overflow: hidden; }
+  .stack .row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: clamp(0.7rem,1.05vw,1rem) clamp(1.1rem,1.6vw,1.5rem); border-bottom: 1px solid var(--hair); }
+  .stack .row:last-child { border-bottom: none; }
+  .stack .row .it { font-size: clamp(0.95rem,1.2vw,1.18rem); font-weight: 500; display: flex; align-items: center; gap: 14px; }
+  .stack .row .it b { font-weight: 700; }
+  .stack .row .vl { font-family: var(--sans); font-size: clamp(0.78rem,1.0vw,0.96rem); color: var(--accent-deep); font-weight: 700; flex: none; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stack .row .ix { font-family: var(--sans); font-size: 0.92rem; font-weight: 700; color: var(--accent-deep); background: var(--accent-soft); border-radius: 8px; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .stack .row.bonus { background: var(--accent-soft); }
+
+  /* card trio */
+  .tri { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(0.8rem,1.5vw,1.4rem); max-width: 108ch; }
+  .tri.two { grid-template-columns: repeat(2,1fr); max-width: 92ch; }
+  .card { background: var(--white); border: 1px solid var(--hair); border-radius: 16px; box-shadow: var(--offset); padding: clamp(1.1rem,1.7vw,1.6rem); display: flex; flex-direction: column; gap: 0.55rem; }
+  .card .n { font-family: var(--sans); font-size: var(--small); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--accent); }
+  .card .ixn { font-family: var(--sans); font-weight: 700; color: var(--accent-deep); background: var(--accent-soft); border-radius: 9px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; }
+  .card h3 { font-weight: 700; font-size: clamp(1.02rem,1.5vw,1.4rem); letter-spacing: -0.02em; margin: 0; }
+  .card p { font-size: clamp(0.86rem,1.12vw,1.08rem); color: var(--gray-mid); max-width: none; }
+  .card.lead-card { border-top: 3px solid var(--accent); }
+  @media (max-width: 900px){ .tri, .tri.two { grid-template-columns: 1fr; } }
+
+  /* big stats */
+  .statgrid { display: flex; flex-wrap: wrap; gap: clamp(1.4rem,3.4vw,3.6rem); align-items: flex-start; }
+  .stat { display: flex; flex-direction: column; gap: 0.3rem; max-width: 26ch; }
+  .stat .big { font-family: var(--serif); font-size: clamp(2.8rem,6.4vw,5.4rem); line-height: 0.92; color: var(--accent); letter-spacing: -0.02em; }
+  .stat .big.dim { color: var(--gray-light); }
+  .slide.fin .stat .big { color: #7FB0FF; }
+  .stat .cap { font-weight: 700; font-size: clamp(0.98rem,1.3vw,1.22rem); }
+  .stat .sub2 { color: var(--gray-mid); font-size: clamp(0.84rem,1.08vw,1.04rem); }
+  .slide.fin .stat .sub2 { color: rgba(242,237,227,0.7); }
+
+  /* quote */
+  .quote { background: var(--white); border: 1px solid var(--hair); border-left: 4px solid var(--accent); border-radius: 12px; box-shadow: var(--offset-sm); padding: clamp(1rem,1.6vw,1.5rem) clamp(1.2rem,1.9vw,1.8rem); max-width: 74ch; }
+  .quote .q { font-family: var(--serif); font-size: clamp(1.2rem,2.1vw,1.85rem); line-height: 1.22; }
+  .quote .who { font-family: var(--sans); font-size: clamp(0.72rem,0.92vw,0.88rem); color: var(--gray-mid); margin-top: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .quotes2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem,1.5vw,1.3rem); max-width: 108ch; }
+  @media (max-width: 860px){ .quotes2 { grid-template-columns: 1fr; } }
+
+  /* portrait grid */
+  .pgrid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: clamp(1.6rem,3.4vw,3.6rem); align-items: center; max-width: 110ch; }
+  .pgrid img.shot { width: 100%; border-radius: 12px; box-shadow: var(--offset); border: 1px solid var(--hair); display: block; }
+  .pcol { display: flex; flex-direction: column; gap: clamp(0.6rem,1.2vw,1rem); min-width: 0; }
+  @media (max-width: 880px){ .pgrid { grid-template-columns: 1fr; } .pgrid img.shot { max-height: 26vh; object-fit: cover; object-position: top; } }
+
+  /* internal-read tag + deflist */
+  .ir-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: var(--small); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-mid); border: 1px dashed var(--gray-light); border-radius: 999px; padding: 4px 12px; align-self: flex-start; }
+  .ir-tag::before { content:''; width:7px; height:7px; border-radius:50%; background: var(--gray-light); }
+  .deflist { display: flex; flex-direction: column; gap: clamp(0.55rem,1vw,0.9rem); max-width: 78ch; }
+  .deflist .d { display: flex; gap: 16px; align-items: baseline; }
+  .deflist .dk { font-family: var(--sans); font-size: clamp(0.72rem,0.92vw,0.88rem); text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-deep); font-weight: 700; min-width: clamp(120px,15vw,200px); flex: none; }
+  .deflist .dv { font-size: clamp(0.95rem,1.28vw,1.22rem); font-weight: 500; }
+
+  /* browser frame */
+  .browser { border-radius: 12px; overflow: hidden; border: 1px solid var(--hair); box-shadow: var(--offset); background: #fff; width: 100%; display: block; text-decoration: none; color: inherit; }
+  a.browser { cursor: pointer; transition: transform 160ms var(--ease), box-shadow 160ms var(--ease); }
+  a.browser .url { transition: color 160ms var(--ease); }
+  a.browser:hover { transform: translateY(-3px); box-shadow: 0 24px 48px -20px rgba(0,0,0,0.45); }
+  a.browser:hover .url { color: var(--accent-deep); text-decoration: underline; }
+  .browser .bar { display: flex; align-items: center; gap: 7px; padding: 8px 12px; background: var(--cream-soft); border-bottom: 1px solid var(--hair); }
+  .browser .bar .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(31,21,17,0.16); }
+  .browser .bar .url { font-family: var(--sans); font-size: clamp(0.64rem,0.82vw,0.78rem); color: var(--gray-mid); margin-left: 8px; }
+  .browser .live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: clamp(0.58rem,0.74vw,0.7rem); text-transform: uppercase; letter-spacing: 0.12em; color: #1A7F4B; }
+  .browser .live .d { width: 7px; height: 7px; border-radius: 50%; background: #21A35A; }
+  .browser .scrollwin { overflow: hidden; }
+  .browser img { display: block; width: 100%; height: auto; }
+  .shotwrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(1.2rem,2.6vw,2.6rem); align-items: center; max-width: 116ch; }
+  .shotwrap.rev { grid-template-columns: 1fr 1.35fr; }
+  @media (max-width: 900px){ .shotwrap, .shotwrap.rev { grid-template-columns: 1fr; } }
+  .shotgrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.9rem,1.8vw,1.6rem); max-width: 116ch; align-items: start; }
+  @media (max-width: 900px){ .shotgrid { grid-template-columns: 1fr; } }
+
+  /* ===== without / with (the lived contrast) ===== */
+  .daygrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.9rem,1.8vw,1.6rem); max-width: 110ch; }
+  .daycol { border-radius: 12px; padding: clamp(1.1rem,1.8vw,1.7rem); display: flex; flex-direction: column; gap: clamp(0.6rem,1.1vw,0.95rem); }
+  .daycol.dread { background: var(--cream-dim); border: 1px solid var(--hair); }
+  .daycol.clean { background: linear-gradient(160deg, #EAF1FF, #F4F8FF); border: 1px solid rgba(37,99,235,0.18); box-shadow: var(--offset); }
+  .daycol .dh { display: flex; align-items: center; justify-content: space-between; }
+  .daycol .dh .lbl { font-family: var(--sans); font-size: clamp(0.74rem,0.98vw,0.94rem); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; }
+  .daycol.dread .dh .lbl { color: var(--gray-mid); } .daycol.clean .dh .lbl { color: var(--accent-deep); }
+  .daycol .dh .tag { font-family: var(--sans); font-size: clamp(0.6rem,0.78vw,0.72rem); text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 999px; }
+  .daycol.dread .dh .tag { background: rgba(31,21,17,0.06); color: var(--gray-mid); } .daycol.clean .dh .tag { background: var(--accent-soft); color: var(--accent-deep); }
+  .daysteps { position: relative; display: flex; flex-direction: column; gap: clamp(0.5rem,0.95vw,0.8rem); padding-left: 26px; }
+  .daysteps::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; }
+  .daycol.dread .daysteps::before { background: rgba(31,21,17,0.16); }
+  .daycol.clean .daysteps::before { background: rgba(37,99,235,0.28); }
+  .dstep { position: relative; font-size: clamp(0.9rem,1.18vw,1.12rem); line-height: 1.38; }
+  .dstep::before { content: ''; position: absolute; left: -26px; top: 0.35em; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--cream-dim); }
+  .daycol.dread .dstep { color: var(--gray-mid); } .daycol.dread .dstep::before { background: var(--gray-light); border-color: var(--cream-dim); }
+  .daycol.clean .dstep { color: var(--ink); } .daycol.clean .dstep::before { background: var(--accent); border-color: #EAF1FF; }
+  .dend { margin-top: 0.3rem; font-weight: 700; font-size: clamp(0.95rem,1.25vw,1.18rem); }
+  .daycol.dread .dend { color: var(--gray-mid); } .daycol.clean .dend { color: var(--accent-deep); }
+  @media (max-width: 880px){ .daygrid { grid-template-columns: 1fr; } }
+
+  /* ===== inside / outside the send (competitive) ===== */
+  .sendsplit { display: flex; flex-direction: column; gap: 0; max-width: 46ch; width: 100%; }
+  .ss-zone { border: 1px solid var(--hair); border-radius: 16px; padding: clamp(1rem,1.5vw,1.4rem); background: var(--white); box-shadow: var(--offset-sm); }
+  .ss-lbl { font-family: var(--sans); font-size: clamp(0.66rem,0.86vw,0.8rem); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .ss-zone.out .ss-lbl { color: var(--gray-mid); }
+  .ss-sub { font-size: clamp(0.78rem,1vw,0.96rem); color: var(--gray-mid); margin-top: 2px; }
+  .ss-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
+  .ss-chip { background: var(--cream-soft); border: 1px solid var(--hair); border-radius: 999px; padding: 6px 13px; font-size: clamp(0.76rem,0.98vw,0.96rem); font-weight: 600; }
+  .ss-link { display: flex; flex-direction: column; align-items: center; padding: 9px 0 3px; }
+  .ss-link .ar { color: var(--accent); font-size: 1.3rem; line-height: 1; }
+  .ss-link .lk { font-family: var(--sans); font-size: clamp(0.6rem,0.78vw,0.72rem); text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-deep); margin-top: 2px; }
+  .ss-zone.in { border: 1px solid rgba(37,99,235,0.25); border-top: 3px solid var(--accent); background: linear-gradient(160deg, #EAF1FF, #F4F8FF); }
+  .ss-zone.in .ss-lbl { color: var(--accent-deep); }
+  .ss-zone.in .ss-big { font-weight: 800; font-size: clamp(1.05rem,1.6vw,1.5rem); margin-top: 7px; letter-spacing: -0.01em; }
+
+  /* ===== 90-day timeline ===== */
+  .timeline { display: flex; flex-direction: column; gap: clamp(0.9rem,1.7vw,1.5rem); max-width: 126ch; width: 100%; }
+  .tl-track { position: relative; background: var(--white); border: 1px solid var(--hair); border-radius: 14px; box-shadow: var(--offset-sm); padding: clamp(0.9rem,1.4vw,1.2rem) clamp(1.3rem,2vw,1.8rem) clamp(0.7rem,1.1vw,1rem); display: flex; flex-direction: column; gap: 0.3rem; }
+  .tl-track .tlh { display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; }
+  .tl-track .tlh .tnm { font-weight: 700; font-size: clamp(0.96rem,1.25vw,1.2rem); }
+  .tl-track .tlh .tag { font-family: var(--sans); font-size: clamp(0.6rem,0.78vw,0.72rem); text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 999px; font-weight: 700; }
+  .tl-track.t1 .tlh .tag { background: var(--accent-soft); color: var(--accent-deep); }
+  .tl-track.t2 .tlh .tag { background: var(--ink); color: var(--cream); }
+  .tl-track .tlh .tnote { font-family: var(--sans); font-size: clamp(0.64rem,0.84vw,0.78rem); color: var(--gray-mid); margin-left: auto; }
+  .tl-rail { position: relative; height: clamp(76px, 12vh, 100px); margin: 0 clamp(3rem, 7vw, 6rem); }
+  .tl-rail::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 3px; transform: translateY(-50%); background: var(--accent-soft); border-radius: 3px; }
+  .tl-rail::after { content: ''; position: absolute; left: 0; top: 50%; height: 3px; transform: translateY(-50%) scaleX(0); transform-origin: left; width: 100%; background: var(--accent); border-radius: 3px; transition: transform 1.2s var(--ease) 0.3s; }
+  .slide.in .tl-rail::after { transform: translateY(-50%) scaleX(1); }
+  .tl-gate { position: absolute; top: 50%; transform: translate(-50%,-50%); opacity: 0; transition: opacity 0.5s var(--ease); }
+  .slide.in .tl-gate { opacity: 1; }
+  .slide.in .tl-gate:nth-child(2){transition-delay:.45s} .slide.in .tl-gate:nth-child(3){transition-delay:.6s} .slide.in .tl-gate:nth-child(4){transition-delay:.75s} .slide.in .tl-gate:nth-child(5){transition-delay:.9s}
+  .tl-gate .dot { display: block; width: 15px; height: 15px; box-sizing: border-box; border-radius: 50%; background: var(--accent); border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--accent); }
+  .tl-gate.kill .dot { background: var(--warm); box-shadow: 0 0 0 1.5px var(--warm); }
+  .tl-gate .lab { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; }
+  .tl-gate.up .lab { bottom: 19px; } .tl-gate.down .lab { top: 19px; }
+  .tl-gate.start .lab { left: -3px; transform: none; text-align: left; }
+  .tl-gate.end .lab { left: auto; right: -3px; transform: none; text-align: right; }
+  .tl-gate .dd { display: block; font-weight: 700; font-size: clamp(0.78rem,1.02vw,0.98rem); color: var(--ink); letter-spacing: -0.01em; }
+  .tl-gate .dm { display: block; font-size: clamp(0.72rem,0.94vw,0.9rem); color: var(--gray-mid); margin-top: 1px; }
+  .tl-gate.kill .dd, .tl-gate.kill .dm { color: var(--warm); }
+  .tl-gate.kill .dm { font-weight: 600; }
+  .tl-work { display: flex; gap: 5px; margin: clamp(0.25rem,0.5vw,0.45rem) clamp(3rem,7vw,6rem) 0; }
+  .tl-seg { flex-basis: 0; min-width: 0; border-radius: 8px; padding: 7px 11px; font-family: var(--sans); font-size: clamp(0.64rem,0.84vw,0.79rem); line-height: 1.22; text-align: center; display: flex; align-items: center; justify-content: center; }
+  .tl-track.t1 .tl-seg { background: rgba(37,99,235,0.07); border: 1px solid rgba(37,99,235,0.16); color: var(--accent-deep); }
+  .tl-track.t2 .tl-seg { background: rgba(31,21,17,0.045); border: 1px solid rgba(31,21,17,0.1); color: var(--ink); }
+  .tl-streams { display: flex; align-items: baseline; gap: clamp(10px,1.4vw,18px); flex-wrap: wrap; }
+  .tl-streams .lbl { font-family: var(--sans); font-size: clamp(0.64rem,0.84vw,0.78rem); text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-mid); flex: none; }
+  .tl-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tlc { font-size: clamp(0.74rem,0.95vw,0.92rem); font-weight: 600; padding: 5px 12px; border-radius: 999px; line-height: 1.1; }
+  .tlc.t1 { background: var(--accent-soft); color: var(--accent-deep); border: 1px solid rgba(37,99,235,0.18); }
+  .tlc.t2 { background: var(--ink); color: var(--cream); border: 1px solid var(--ink); }
+
+  /* divider */
+  .slide.divider { background: var(--ink); color: var(--cream); }
+  .slide.divider .topbar, .slide.divider .footer { color: rgba(242,237,227,0.66); }
+
+  /* section roadmap rail */
+  .section-progress { position: fixed; right: clamp(0.6rem,1.2vw,1.3rem); top: 50%; transform: translateY(-50%); z-index: 50; display: flex; flex-direction: column; gap: 5px; padding: 9px 7px; border-radius: 14px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: opacity 280ms var(--ease), transform 280ms var(--ease); }
+  .section-progress[data-theme="light"] { background: rgba(31,21,17,0.02); border: 1px solid rgba(31,21,17,0.05); }
+  .section-progress[data-theme="dark"] { background: rgba(242,237,227,0.06); border: 1px solid rgba(242,237,227,0.14); }
+  .section-progress.hide-rail { opacity: 0; transform: translateY(-50%) translateX(16px); pointer-events: none; }
+  .section-marker { display: flex; flex-direction: column; align-items: center; gap: 2px; width: clamp(54px,4.6vw,68px); padding: 7px 4px; border-radius: 10px; cursor: pointer; text-align: center; background: transparent; border: 1px solid transparent; transition: background 200ms var(--ease), transform 200ms var(--ease); font-family: var(--sans); }
+  .section-marker .mn { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; line-height: 1; }
+  .section-marker .ml { font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.62; line-height: 1.1; margin-top: 2px; }
+  .section-progress[data-theme="light"] .section-marker .mn, .section-progress[data-theme="light"] .section-marker .ml { color: var(--ink); }
+  .section-progress[data-theme="dark"] .section-marker .mn, .section-progress[data-theme="dark"] .section-marker .ml { color: var(--cream); }
+  .section-progress[data-theme="light"] .section-marker:hover { background: rgba(31,21,17,0.05); }
+  .section-progress[data-theme="dark"] .section-marker:hover { background: rgba(242,237,227,0.08); }
+  .section-marker.active { transform: scale(1.04); }
+  .section-progress[data-theme="light"] .section-marker.active { background: var(--accent); }
+  .section-progress[data-theme="light"] .section-marker.active .mn, .section-progress[data-theme="light"] .section-marker.active .ml { color: #fff; opacity: 1; }
+  .section-progress[data-theme="dark"] .section-marker.active { background: var(--cream); }
+  .section-progress[data-theme="dark"] .section-marker.active .mn, .section-progress[data-theme="dark"] .section-marker.active .ml { color: var(--ink); opacity: 1; }
+  @media (max-width: 1040px){ .section-progress { display: none; } }
+
+  .progress-rail { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; }
+  .progress-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.22s ease; }
+
+  /* appendix index buttons (on the divider slide) */
+  .apx-index { display: flex; flex-direction: column; gap: 10px; max-width: 56ch; margin-top: 0.5rem; }
+  .apx-btn { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; padding: 13px 18px; border-radius: 12px; border: 1px solid rgba(242,237,227,0.18); background: rgba(242,237,227,0.05); color: var(--cream); font-family: var(--sans); font-size: clamp(0.9rem,1.16vw,1.06rem); font-weight: 500; cursor: pointer; transition: background 180ms var(--ease), border-color 180ms var(--ease), transform 180ms var(--ease); }
+  .apx-btn:hover { background: rgba(242,237,227,0.1); border-color: rgba(157,192,255,0.55); transform: translateX(3px); }
+  .apx-n { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 23px; padding: 0 7px; border-radius: 6px; background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; }
+
+  /* appendix proof links */
+  .proof-link { color: var(--accent-deep); font-weight: 700; text-decoration: none; white-space: nowrap; border-bottom: 1px solid rgba(37,99,235,0.4); transition: color 140ms var(--ease), border-color 140ms var(--ease); }
+  .proof-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* jump control (present-mode quick nav) */
+  .jump { position: fixed; left: 22px; bottom: 54px; z-index: 80; font-family: var(--sans); display: flex; align-items: center; gap: 8px; }
+  .jump-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px; border: 1px solid rgba(31,21,17,0.16); background: rgba(242,237,227,0.93); color: var(--ink); font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.03em; cursor: pointer; box-shadow: 0 4px 18px rgba(31,21,17,0.16); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background 160ms var(--ease), transform 160ms var(--ease); }
+  .jump-toggle:hover { transform: translateY(-1px); }
+  .jump-return { display: none; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: #fff; font-family: var(--sans); font-size: 0.78rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 20px rgba(37,99,235,0.36); transition: transform 160ms var(--ease); }
+  .jump-return.show { display: inline-flex; }
+  .jump-return:hover { transform: translateY(-1px); }
+  .jump-return svg { width: 14px; height: 14px; }
+  .jump-toggle svg { width: 15px; height: 15px; }
+  .jump-menu { position: absolute; left: 0; bottom: calc(100% + 10px); width: 296px; max-height: 70vh; overflow-y: auto; padding: 8px; border-radius: 14px; background: rgba(247,243,236,0.98); border: 1px solid rgba(31,21,17,0.12); box-shadow: 0 18px 50px rgba(31,21,17,0.26); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); opacity: 0; transform: translateY(8px) scale(0.98); transform-origin: bottom left; pointer-events: none; transition: opacity 180ms var(--ease), transform 180ms var(--ease); }
+  .jump.open .jump-menu { opacity: 1; transform: none; pointer-events: auto; }
+  .jump-grp { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gray-light); padding: 11px 12px 5px; }
+  .jump-item { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 12px; border: 0; border-radius: 9px; background: transparent; color: var(--ink); font-family: var(--sans); font-size: 0.86rem; font-weight: 500; cursor: pointer; transition: background 130ms var(--ease); }
+  .jump-item:hover { background: rgba(37,99,235,0.1); }
+  .jump-item .ji-n { min-width: 22px; font-size: 0.7rem; font-weight: 700; color: var(--gray-light); }
+  .jump-item.cur { background: rgba(37,99,235,0.13); color: var(--accent); }
+  .jump-item.cur .ji-n { color: var(--accent); }
+  .jump-back { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; margin-bottom: 6px; padding: 10px 12px; border: 0; border-radius: 9px; background: var(--accent); color: #fff; font-family: var(--sans); font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+  .jump-back svg { width: 14px; height: 14px; }
+  @media (max-width: 1040px){ .jump { display: none; } }
+  @media print { .jump { display: none; } }
+
+  /* reveal + stagger */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .slide.in .reveal { opacity: 1; transform: none; }
+  .slide.in .reveal:nth-child(2){transition-delay:.07s} .slide.in .reveal:nth-child(3){transition-delay:.14s}
+  .slide.in .reveal:nth-child(4){transition-delay:.21s} .slide.in .reveal:nth-child(5){transition-delay:.28s}
+  .slide.in .reveal:nth-child(6){transition-delay:.35s}
+  .stagger > * { opacity: 0; transform: translateY(12px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
+  .slide.in .stagger > * { opacity: 1; transform: none; }
+  .slide.in .stagger > *:nth-child(1){transition-delay:.28s} .slide.in .stagger > *:nth-child(2){transition-delay:.40s}
+  .slide.in .stagger > *:nth-child(3){transition-delay:.52s} .slide.in .stagger > *:nth-child(4){transition-delay:.64s}
+  .slide.in .stagger > *:nth-child(5){transition-delay:.76s} .slide.in .stagger > *:nth-child(6){transition-delay:.88s}
+
+  h1 em, .bigline em, h1.title em { position: relative; }
+  h1 em::after, .bigline em::after, h1.title em::after { content: ''; position: absolute; left: 0; bottom: 0.04em; height: 0.1em; width: 100%; background: var(--accent); opacity: 0.22; border-radius: 3px; transform: scaleX(0); transform-origin: left; transition: transform 0.7s var(--ease) 0.3s; }
+  .slide.in h1 em::after, .slide.in .bigline em::after, .slide.in h1.title em::after { transform: scaleX(1); }
+  .slide.fin h1 em::after, .slide.fin .bigline em::after { background: #7FB0FF; opacity: 0.3; }
+  .vs .panel, .daygrid .daycol, .quotes2 .quote { opacity: 0; transform: translateY(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+  .slide.in .vs .panel, .slide.in .daygrid .daycol, .slide.in .quotes2 .quote { opacity: 1; transform: none; }
+  .slide.in .vs .panel:nth-child(2), .slide.in .daygrid .daycol:nth-child(2), .slide.in .quotes2 .quote:nth-child(2){transition-delay:.18s}
+
+  .slide.fin.in::before { animation: glowBreathe 6s ease-in-out infinite; }
+  @keyframes glowBreathe { 0%,100% { opacity: 0.85; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+
+  @media (max-height: 860px){ .lead { font-size: clamp(0.95rem,1.45vw,1.2rem); } .band .punch { font-size: clamp(1.2rem,2.4vw,1.9rem); } .card p, .panel p, .panel li { font-size: clamp(0.82rem,1.04vw,1rem); } .points li { font-size: clamp(0.9rem,1.18vw,1.1rem); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal, .stagger > *, .vs .panel, .daygrid .daycol, .quotes2 .quote, .tl-gate { opacity: 1 !important; transform: none !important; } .tl-rail::after { transform: scaleX(1) !important; } }
+
+  /* cover */
+  .slide.cover { background: var(--ink); color: var(--cream); }
+  .slide.cover .topbar, .slide.cover .footer { color: rgba(242,237,227,0.96); text-shadow: 0 1px 12px rgba(20,14,11,0.7); }
+  .cover-grid { flex: 1; position: relative; z-index: 3; display: grid; grid-template-columns: 1.02fr 0.98fr; align-items: center; gap: clamp(1.8rem,4vw,4rem); padding: var(--pad); padding-top: max(var(--pad),5rem); padding-bottom: max(var(--pad),4.6rem); }
+  .cover-copy { display: flex; flex-direction: column; gap: clamp(0.7rem,1.4vw,1.2rem); min-width: 0; }
+  .slide.cover .eyebrow { color: #9DC0FF; }
+  .slide.cover h1.title { color: var(--cream); }
+  .slide.cover h1.title em { color: #9DC0FF; }
+  .slide.cover h1.title em::after { background: #9DC0FF; opacity: 0.32; }
+  .slide.cover .lead.sub { color: rgba(242,237,227,0.82); }
+  .cover-by { font-family: var(--sans); font-size: clamp(0.85rem,1.05vw,1.02rem); font-weight: 500; color: rgba(242,237,227,0.6); margin-top: 0.3rem; }
+  .cover-product { position: relative; min-width: 0; }
+  .cover-product .browser { box-shadow: 0 40px 80px -28px rgba(0,0,0,0.7), 0 0 0 1px rgba(242,237,227,0.06); }
+  .cover-product::before { content: ''; position: absolute; inset: -16% -10% -16% -6%; background: radial-gradient(closest-side, rgba(37,99,235,0.22), transparent 78%); z-index: -1; pointer-events: none; }
+  @media (max-width: 980px){ .cover-grid { grid-template-columns: 1fr; } .cover-product { display: none; } }
+
+  /* animated brain (marketing-brain slide only) */
+  .brain-stage { position: absolute; top: 0; right: 0; bottom: 0; width: 52%; z-index: 1; pointer-events: none; overflow: hidden; }
+  .brain-stage .glow-disc { position: absolute; top: 50%; left: 50%; width: 66%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(37,99,235,0.30) 0%, rgba(37,99,235,0.06) 52%, transparent 72%); }
+  .slide.in .brain-stage .glow-disc { animation: discBreathe 6s ease-in-out infinite; }
+  @keyframes discBreathe { 0%,100% { opacity: 0.85; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.05); } }
+  .cover-art { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: clamp(320px, 34vw, 540px); height: auto; mix-blend-mode: screen; filter: drop-shadow(0 0 26px rgba(37,99,235,0.22)); }
+  .brain-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+  .brain-stage.live .brain-canvas { display: block; } .brain-stage.live .cover-art { display: none; }
+  @media (max-width: 980px){ .brain-stage { display: none; } }
+
+  /* demo */
+  .slide.demo .slide-content { gap: clamp(0.9rem,1.7vw,1.4rem); }
+  .demo-eyebrow { display: inline-flex; align-items: center; gap: 11px; font-family: var(--sans); font-size: clamp(0.78rem,1.05vw,1rem); text-transform: uppercase; letter-spacing: 0.22em; font-weight: 600; color: #7FB0FF; }
+  .demo-eyebrow .d { width: 10px; height: 10px; border-radius: 50%; background: #E5484D; box-shadow: 0 0 0 0 rgba(229,72,77,0.6); animation: livePulse 1.8s ease-in-out infinite; }
+  @keyframes livePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(229,72,77,0.5); } 50% { box-shadow: 0 0 0 9px rgba(229,72,77,0); } }
+  h1.demo-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem,5vw,4.2rem); line-height: 0.99; letter-spacing: -0.02em; margin: 0; max-width: 19ch; color: var(--cream); }
+  h1.demo-title em { color: #7FB0FF; }
+  .demo-cue { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: clamp(0.74rem,0.98vw,0.92rem); text-transform: uppercase; letter-spacing: 0.16em; color: rgba(242,237,227,0.55); }
+  .demo-cue svg { width: clamp(15px,1.4vw,19px); height: auto; stroke: rgba(242,237,227,0.55); }
+
+  @media print { html { scroll-snap-type: none; } .slide { height: 100vh; page-break-after: always; } .progress-rail, .section-progress { display: none; } .reveal, .stagger > *, .vs .panel, .daygrid .daycol, .quotes2 .quote, .tl-gate { opacity: 1 !important; transform: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide cover" aria-label="Cover">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>beehiiv &middot; Senior PMM</span></div>
+    <div class="cover-grid">
+      <div class="cover-copy">
+        <span class="eyebrow reveal">Bring Your Own Deals</span>
+        <h1 class="title reveal">Run every sponsorship on beehiiv. Even the deals you <em>bring yourself.</em></h1>
+        <p class="lead sub reveal" style="max-width:40ch;">Make Direct Sponsorships the place creators run every deal, not just the ones you booked.</p>
+        <span class="cover-by reveal">Will Mulholland &middot; for Tyler, Darren, Tony &amp; Jake</span>
+      </div>
+      <div class="cover-product reveal">
+        <a class="browser" href="https://ds-landing-page-omega.vercel.app" target="_blank" rel="noopener">
+          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">ds-landing-page-omega.vercel.app</span><span class="live"><span class="d"></span>built &amp; live</span></div>
+          <div class="scrollwin" style="max-height:58vh;"><img src="assets/landing-hero.png" alt="The Bring Your Own Deals landing page, built live in beehiiv's brand" /></div>
+        </a>
+      </div>
+    </div>
+    <div class="footer"><span>intelligentgrowth.app</span><span>01</span></div>
+  </section>
+
+  <!-- 2 COLD OPEN -->
+  <section class="slide fin" aria-label="Cold open">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Where I'm coming from</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal" style="color:#7FB0FF;">Before we start</span>
+      <p class="bigline reveal" style="color:var(--cream);max-width:23ch;">I have solved this <em>exact problem</em> before.</p>
+      <ul class="points reveal" style="max-width:62ch;">
+        <li>I ran the advertiser side of eBay's ad network.</li>
+        <li>What capped our yield wasn't inventory. It was advertiser confidence.</li>
+        <li>beehiiv has the same gap on Direct Sponsorships, its highest-value creator feature.</li>
+      </ul>
+      <p class="muted reveal">So I went and got close to the people who live in the product.</p>
+    </div>
+    <div class="footer"><span></span><span>02</span></div>
+  </section>
+
+  <!-- 3 RESEARCH -->
+  <section class="slide" aria-label="The research">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The research</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal">Two interviews, plus ~10,000 community messages</span>
+      <h1 class="reveal">The creators named the gap: it only runs the deals you <em>book.</em></h1>
+      <ul class="points reveal" style="max-width:66ch;">
+        <li>I couldn't see your data, so I went to the people in the product: two interviews, Isaac (120k) and Alex (70k), around 10,000 hiiv messages, plus your competitors' ads and your own.</li>
+        <li>The question: which paid feature has the biggest gap between what it can do and how many creators use it? Direct Sponsorships.</li>
+      </ul>
+      <div class="quotes2 reveal">
+        <div class="quote"><div class="q">"Every deal I've ever done, I've sourced myself, not through Passionfroot."</div><div class="who">Isaac &middot; 120k</div></div>
+        <div class="quote"><div class="q">The tracking gets stripped, "your stats are off quite far."</div><div class="who">Alex &middot; 70k</div></div>
+      </div>
+      <p class="muted reveal">Both gaps recurred across the hiiv community, not just these two interviews.</p>
+    </div>
+    <div class="footer"><span></span><span>03</span></div>
+  </section>
+
+  <!-- 4 RESEARCH: COMMUNITY PATTERN -->
+  <section class="slide alt" aria-label="The research depth">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The research</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">The same gaps recurred across the community, not just two <em>interviews.</em></h1>
+      <div class="tri two reveal">
+        <div class="card"><span class="n">No inbound demand</span><p>A creator who built their storefront asked where sponsors actually discover them. The honest answer in the community was no marketplace, do cold outreach. The page needs demand, not just promotion.</p></div>
+        <div class="card"><span class="n">Direct beats the network</span><p>beehiiv staff said the Ad Network was never meant to compete with direct sales. Direct is the high-value layer beehiiv does not fully serve yet.</p></div>
+        <div class="card"><span class="n">The numbers are not trusted</span><p>One creator put it plainly: I know open rate is baloney, you know it, but the buyers do not. That is the proof gap a verified kit closes.</p></div>
+        <div class="card"><span class="n">Pricing has no anchor</span><p>A 115k operator asked the group what to charge. There is no anchor, which is both a setup blocker and a data-generated rate-card opportunity.</p></div>
+      </div>
+      <p class="muted reveal">I read your community, so the diagnosis is evidence, two primary interviews and the pattern across thousands of messages, not a hunch.</p>
+    </div>
+    <div class="footer"><span></span><span>04</span></div>
+  </section>
+
+  <!-- 5 GAP: MONEY -->
+  <section class="slide alt" aria-label="The stakes">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The gap</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">Direct is where the money is, and you built the full product to <em>win it.</em></h1>
+      <div class="statgrid reveal" style="margin:0.4rem 0;">
+        <div class="stat"><span class="big">$35-40</span><span class="cap">CPM, a direct placement</span><span class="sub2">Often four figures a deal. Isaac's number, to validate.</span></div>
+        <div class="stat"><span class="big dim">$6-8</span><span class="cap">CPM, your Ad Network</span><span class="sub2">Often under $200. Creators say it "only covers the cost of the beehiiv subscription."</span></div>
+      </div>
+      <p class="muted reveal">Not just Isaac. A 33k-subscriber operator on r/beehiiv, around $300k a year, says the CPMs selling your own ads beat the network "by an order of magnitude."</p>
+      <p class="muted reveal">You built the full product to capture direct: storefront, booking, proposals, payment.</p>
+    </div>
+    <div class="footer"><span></span><span>05</span></div>
+  </section>
+
+  <!-- 6 GAP: THE WALL -->
+  <section class="slide" aria-label="The wall">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The gap</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">So why does it stall? The gate and the floor lock the best operators <em>out.</em></h1>
+      <div class="vs reveal">
+        <div class="panel bad"><span class="n">The gate</span><h3>Locked to Max and Enterprise</h3><p>The creators you most want are shut out before they ever feel the value.</p></div>
+        <div class="panel bad"><span class="n">The floor</span><h3>The Ad Network's $15k minimum</h3><p>Right for big managed buys, but it leaves the 15k-to-100k operator's direct deals unserved.</p></div>
+      </div>
+      <div class="band reveal"><div class="punch">You built the operating system, then <em>walled it</em> to the deals you book.</div></div>
+    </div>
+    <div class="footer"><span></span><span>06</span></div>
+  </section>
+
+  <!-- 7 BUILT VS PROPOSED -->
+  <section class="slide alt" aria-label="Built versus proposed">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>What is real</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">Direct Sponsorships already ships. The move is to point it at <em>every deal.</em></h1>
+      <div class="shotwrap reveal">
+        <div class="vs" style="grid-template-columns:1fr;max-width:none;gap:clamp(0.7rem,1.2vw,1.1rem);">
+          <div class="panel good"><span class="n">Ships today &middot; Max and Enterprise</span><ul><li>Storefront, calendar, proposals, manual partner add</li><li>A $10 flat fee, verified bot-filtered clicks</li><li>A creator-facing report after each send</li></ul></div>
+          <div class="panel"><span class="n" style="color:var(--accent-deep)">What Bring Your Own Deals adds</span><ul><li>Ingest a deal that closed off beehiiv</li><li>A verified media kit, shown before the buy</li><li>A sponsor account: the certified report, sponsor-facing</li></ul></div>
+        </div>
+        <a class="browser" href="https://ds-landing-page-omega.vercel.app" target="_blank" rel="noopener"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">ds-landing-page-omega.vercel.app</span><span class="live"><span class="d"></span>built</span></div><div class="scrollwin" style="max-height:46vh;"><img src="assets/landing-section-1.png" alt="The live-today versus proposed rail on the rebuilt landing page" /></div></a>
+      </div>
+      <p class="muted reveal">The measurement, and even the manual partner add, already exist. The gap is the deal that closed off beehiiv, and proof the sponsor can hold, not the booking itself.</p>
+    </div>
+    <div class="footer"><span></span><span>07</span></div>
+  </section>
+
+  <!-- 8 PERSONA -->
+  <section class="slide" aria-label="The persona">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Who it's for</span></div>
+    <div class="slide-content">
+      <div class="pgrid reveal">
+        <div class="pcol">
+          <span class="eyebrow">Who it's for</span>
+          <h1 style="font-size:clamp(1.6rem,3.3vw,2.9rem);">The operator you most want is the one it serves <em>least.</em></h1>
+          <ul class="points" style="max-width:52ch;">
+            <li>15k to 100k+ subscribers. A growth marketer by trade, already selling direct.</li>
+            <li>Runs ad ops across Notion and a hand-built media kit, a marketplace like Passionfroot if they use one.</li>
+            <li>The most deals, the biggest brands, the inventory and the relationships.</li>
+          </ul>
+          <div class="quote"><div class="q">The storefront "is the value prop for someone starting out, not for me."</div><div class="who">Isaac &middot; 120k</div></div>
+        </div>
+        <img class="shot" src="assets/persona-isaac-v2.png" alt="Isaac, an established newsletter operator and growth marketer, the creator quoted on this slide" />
+      </div>
+    </div>
+    <div class="footer"><span></span><span>08</span></div>
+  </section>
+
+  <!-- 9 COMPETITIVE: CENTRE THE SEND -->
+  <section class="slide alt" aria-label="Why the alternatives lose">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The alternatives</span></div>
+    <div class="slide-content">
+      <div class="shotwrap reveal" style="grid-template-columns:1fr 1fr;align-items:center;">
+        <div class="pcol">
+          <h1 style="font-size:clamp(1.5rem,3.1vw,2.7rem);">Every rival works from outside the <em>send.</em></h1>
+          <ul class="points" style="max-width:48ch;">
+            <li>A marketplace finds the brand. A spreadsheet organises it. A PDF presents it.</li>
+            <li>None of them place the ad in the send, so none can certify the clicks it delivered.</li>
+            <li><b>Only beehiiv runs the send, so only beehiiv certifies the number a sponsor pays against.</b></li>
+          </ul>
+          <p class="muted">Full head-to-head table in the appendix.</p>
+        </div>
+        <div class="sendsplit" aria-label="Outside the send versus inside the send">
+          <div class="ss-zone out">
+            <span class="ss-lbl">Outside the send</span>
+            <div class="ss-sub">Can show an audience. Can't certify the click.</div>
+            <div class="ss-chips"><span class="ss-chip">Passionfroot</span><span class="ss-chip">Paved</span><span class="ss-chip">Sponsy</span><span class="ss-chip">Notion + sheets</span><span class="ss-chip">PDF kit</span></div>
+          </div>
+          <div class="ss-link"><span class="ar">&darr;</span><span class="lk">the send</span></div>
+          <div class="ss-zone in">
+            <span class="ss-lbl">Inside the send</span>
+            <div class="ss-big">beehiiv certifies the clicks a placement delivered.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>09</span></div>
+  </section>
+
+  <!-- 10 OBJECTION -->
+  <section class="slide" aria-label="The objection">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The objection</span></div>
+    <div class="slide-content" style="align-items:flex-start;max-width:100ch;">
+      <span class="eyebrow reveal">The first objection</span>
+      <div class="quote reveal" style="border-left-color:var(--gray-light);max-width:84ch;"><div class="q" style="font-size:clamp(1.5rem,3vw,2.6rem);">"I probably wouldn't run beehiiv alongside Passionfroot. It's one or the other."</div><div class="who">Isaac &middot; 120k</div></div>
+      <ul class="points reveal" style="max-width:66ch;">
+        <li>A half-product loses this creator. Offer only the booking they've already solved, and there's no reason to switch.</li>
+        <li>So the bar is the whole business: every deal, certified from inside the send, on their terms.</li>
+      </ul>
+      <p class="bigline reveal" style="font-size:clamp(1.5rem,3vw,2.4rem);">Win that, and they <em>move.</em></p>
+      <div class="quote reveal" style="border-left-color:var(--accent);max-width:86ch;"><div class="q" style="font-size:clamp(1.15rem,2.2vw,1.65rem);">"If I could run 100% of my ad calendar through one platform, I'd do it for sure."</div><div class="who">Isaac, after seeing the build</div></div>
+    </div>
+    <div class="footer"><span></span><span>10</span></div>
+  </section>
+
+  <!-- 11 WITHOUT / WITH (the redesign) -->
+  <section class="slide alt" aria-label="Without and with">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Same creator, same deal</span></div>
+    <div class="slide-content" style="gap:clamp(0.7rem,1.3vw,1.1rem);">
+      <h1 class="reveal" style="font-size:clamp(1.5rem,3.1vw,2.7rem);">One self-sourced deal. One version they dread, one they'd <em>switch for.</em></h1>
+      <div class="daygrid reveal">
+        <div class="daycol dread">
+          <div class="dh"><span class="lbl">Without it</span><span class="tag">5 tools</span></div>
+          <div class="daysteps stagger">
+            <div class="dstep">A brand they sourced agrees. The deal lives in their inbox and a Notion board.</div>
+            <div class="dstep">They schedule the ad in beehiiv, and track it in Notion, separately.</div>
+            <div class="dstep">Every pitch, they vouch for their own numbers: a live dashboard, but self-reported.</div>
+            <div class="dstep">Nothing is certified by the platform that sent the email, so the burden of proof is always theirs.</div>
+          </div>
+          <div class="dend">The deal, the brand and the proof all live off beehiiv.</div>
+        </div>
+        <div class="daycol clean">
+          <div class="dh"><span class="lbl">With it</span><span class="tag">one system</span></div>
+          <div class="daysteps stagger">
+            <div class="dstep">To win it, they send one link: a verified media kit, the numbers certified by beehiiv before the buy.</div>
+            <div class="dstep">The deal runs in the send, tracked at the placement, no separate tools.</div>
+            <div class="dstep">After it runs, the sponsor gets a certified report: the verified clicks that ad delivered.</div>
+            <div class="dstep">They keep the relationship and the rate.</div>
+          </div>
+          <div class="dend">The brand is now an account on beehiiv.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>11</span></div>
+  </section>
+
+  <!-- 12 POSITIONING + MESSAGE -->
+  <section class="slide" aria-label="Positioning and message">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Positioning, and the message</span></div>
+    <div class="slide-content">
+      <div class="shotwrap rev reveal">
+        <div class="pcol">
+          <span class="eyebrow">The category we claim</span>
+          <h1 style="font-size:clamp(1.45rem,2.9vw,2.5rem);">The operating system for a creator's sponsorship business, not a booking <em>storefront.</em></h1>
+          <p class="lead" style="max-width:44ch;">It ladders into Tyler's own line: the operating system for the content economy.</p>
+          <hr class="accent-bar" />
+          <p class="eyebrow">The words a creator reads</p>
+          <p style="max-width:46ch;font-family:var(--serif);font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.2;">Run your whole sponsorship business on beehiiv. Even the deals you bring yourself.</p>
+        </div>
+        <a class="browser" href="https://ds-landing-page-omega.vercel.app" target="_blank" rel="noopener"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">ds-landing-page-omega.vercel.app</span><span class="live"><span class="d"></span>built &amp; live</span></div><div class="scrollwin" style="max-height:54vh;"><img src="assets/landing-hero.png" alt="The Bring Your Own Deals landing page in beehiiv's live brand" /></div></a>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>12</span></div>
+  </section>
+
+  <!-- 13 THREE BENEFITS -->
+  <section class="slide alt" aria-label="Three benefits">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>What the creator gets</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">A creator keeps more, proves more, and stops juggling <em>tools.</em></h1>
+      <div class="tri stagger">
+        <div class="card lead-card"><span class="n">Your margin</span><h3>Keep more of every deal</h3><p>A flat $10, no marketplace cut chasing your brand on every renewal.</p></div>
+        <div class="card lead-card"><span class="n">Prove it</span><h3>A number a sponsor can't argue with</h3><p>Proof the sponsor can hold, certified by the platform that sends your newsletter, not your screenshot.</p></div>
+        <div class="card lead-card"><span class="n">Simplify</span><h3>Stop juggling five tools</h3><p>One calendar for every deal, direct, cold, or sourced elsewhere, reporting built in.</p></div>
+      </div>
+      <p class="muted reveal">beehiiv already reports those verified clicks to the creator. The new part is proof the sponsor can hold, and only you can offer it.</p>
+    </div>
+    <div class="footer"><span></span><span>13</span></div>
+  </section>
+
+  <!-- 14 ONE CHANGE + MOAT -->
+  <section class="slide" aria-label="The one change and the moat">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The recommendation</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal">The one change</span>
+      <h1 class="reveal">Run and certify every deal, the part no rival can <em>copy.</em></h1>
+      <ul class="points reveal" style="max-width:72ch;">
+        <li>Your API already hands a key holder the audience numbers, and even the verified clicks on a post. The edge was never a hidden stat.</li>
+        <li>Only beehiiv runs the send and owns the deal. So only beehiiv can certify the clicks one specific ad delivered, bot-filtered and tied to real subscribers, and hand that to the sponsor.</li>
+      </ul>
+      <div class="tri stagger" style="max-width:96ch;">
+        <div class="card"><span class="ixn">1</span><h3>The ingest</h3><p>A deal that closed off beehiiv, not just the ones booked on it.</p></div>
+        <div class="card"><span class="ixn">2</span><h3>The media kit</h3><p>Creator-controlled, shown before the buy.</p></div>
+        <div class="card"><span class="ixn">3</span><h3>The sponsor account</h3><p>Where the sponsor views the certified report.</p></div>
+      </div>
+      <p class="muted reveal">Three additions on top of measurement you already run, so the build is small.</p>
+    </div>
+    <div class="footer"><span></span><span>14</span></div>
+  </section>
+
+  <!-- 15 FLYWHEEL -->
+  <section class="slide alt" aria-label="The flywheel">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The payoff</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">Every deal a creator brings warms a new advertiser for your <em>Ad Network.</em></h1>
+      <div class="stack stagger">
+        <div class="row"><span class="it"><span class="ix">1</span>A creator runs their own deal here</span><span class="vl">supply</span></div>
+        <div class="row"><span class="it"><span class="ix">2</span>The sponsor creates an account to see the certified report</span><span class="vl">pull-in</span></div>
+        <div class="row"><span class="it"><span class="ix">3</span>That brand is now on beehiiv, a brand creators already work with</span><span class="vl">warmed</span></div>
+        <div class="row bonus"><span class="it"><span class="ix">4</span>It does more direct deals, then buys through the Ad Network</span><span class="vl">demand</span></div>
+      </div>
+      <div class="band reveal"><div class="punch" style="font-size:clamp(1.15rem,2.3vw,1.9rem);">You grow the demand side off the supply side you already <em>own.</em></div></div>
+    </div>
+    <div class="footer"><span></span><span>15</span></div>
+  </section>
+
+  <!-- 16 ECONOMICS -->
+  <section class="slide" aria-label="The economics">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Why they switch</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">The reason a creator switches is <em>money.</em></h1>
+      <div class="vs reveal">
+        <div class="panel bad"><span class="n">Passionfroot</span><h3>15% on deals it sources</h3><p>And that cut sticks to the brand on every renewal. Isaac ran one sponsor through it for a year, then moved to direct billing just to escape it. "It's like 15%, it's crazy."</p></div>
+        <div class="panel good"><span class="n">beehiiv</span><h3>A flat $10</h3><p>The relationship stays theirs. On a $1,500 deal, that's $10 against the cut.</p></div>
+      </div>
+      <p class="muted reveal">The 15% is Passionfroot's rate on deals it sources. On self-sourced, it's roughly 5% brand-side.</p>
+    </div>
+    <div class="footer"><span></span><span>16</span></div>
+  </section>
+
+  <!-- 16 90-DAY TIMELINE -->
+  <section class="slide alt" aria-label="The 90-day plan">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The 90-day plan</span></div>
+    <div class="slide-content" style="gap:clamp(0.7rem,1.3vw,1rem);">
+      <h1 class="reveal" style="font-size:clamp(1.5rem,3.1vw,2.7rem);">An adoption program, not a release. Two tracks from day <em>zero.</em></h1>
+      <div class="timeline reveal">
+        <div class="tl-track t1">
+          <div class="tlh"><span class="tag">Track 1</span><span class="tnm">Grow the base now, no engineering</span><span class="tnote">no build dependency</span></div>
+          <div class="tl-rail">
+            <div class="tl-gate start up" style="left:0%"><span class="dot"></span><span class="lab"><span class="dd">Day 0</span><span class="dm">recruit cohort</span></span></div>
+            <div class="tl-gate down" style="left:16.7%"><span class="dot"></span><span class="lab"><span class="dd">Day 15</span><span class="dm">onboarded, kits live</span></span></div>
+            <div class="tl-gate end up" style="left:100%"><span class="dot"></span><span class="lab"><span class="dd">Day 90</span><span class="dm">scale call</span></span></div>
+          </div>
+          <div class="tl-work">
+            <div class="tl-seg" style="flex-grow:15">Recruit + onboard 15-25 creators</div>
+            <div class="tl-seg" style="flex-grow:75">Cohort runs real deals, kits go public, in-product triggers + lifecycle + SEO compound</div>
+          </div>
+        </div>
+        <div class="tl-track t2">
+          <div class="tlh"><span class="tag">Track 2</span><span class="tnm">Build the new layer, on Product's clock</span><span class="tnote">cheapest-confidence-first</span></div>
+          <div class="tl-rail">
+            <div class="tl-gate start down" style="left:0%"><span class="dot"></span><span class="lab"><span class="dd">Day 0</span><span class="dm">scope + access call</span></span></div>
+            <div class="tl-gate up" style="left:16.7%"><span class="dot"></span><span class="lab"><span class="dd">Day 15</span><span class="dm">media kit beta</span></span></div>
+            <div class="tl-gate down" style="left:50%"><span class="dot"></span><span class="lab"><span class="dd">Day 45</span><span class="dm">ingest ships</span></span></div>
+            <div class="tl-gate kill up" style="left:66.7%"><span class="dot"></span><span class="lab"><span class="dd">Day 60</span><span class="dm">kill gate, two-arm read</span></span></div>
+            <div class="tl-gate down" style="left:83.3%"><span class="dot"></span><span class="lab"><span class="dd">Day 75</span><span class="dm">sponsor account live</span></span></div>
+          </div>
+          <div class="tl-work">
+            <div class="tl-seg" style="flex-grow:15">Scope it, make the Scale access call</div>
+            <div class="tl-seg" style="flex-grow:30">Build the media kit + off-platform ingest</div>
+            <div class="tl-seg" style="flex-grow:15">Two-arm experiment live: ingest arm vs control</div>
+            <div class="tl-seg" style="flex-grow:15">Ship the sponsor account, sign the flagship</div>
+            <div class="tl-seg" style="flex-grow:15">Scale the proven layer</div>
+          </div>
+        </div>
+      </div>
+      <p class="muted reveal">The bars are what runs in each window, the dots are the gates where evidence is due. The program runs the full 90 days, not the back half.</p>
+    </div>
+    <div class="footer"><span></span><span>17</span></div>
+  </section>
+
+  <!-- 18 COHORT + BETS -->
+  <section class="slide" aria-label="The cohort and the bets">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The engine, and the bets</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">The cohort is the engine. Safe bets, big swings, one <em>experiment.</em></h1>
+      <p class="lead reveal" style="max-width:78ch;">Recruit 15 to 25 established creators who already sell direct, operators like Tom Alder of Strategy Breakdowns (125k) who already run on beehiiv, picked for fit not follower count, and run them as one group in the hiiv community: design partners, public proof, references. I bet on a portfolio, a few flagships and a mid-size base.</p>
+      <div class="tri stagger">
+        <div class="card"><span class="n">Safe bets &middot; day 0</span><p>Recruit the cohort onto what's already live, fire in-product triggers and lifecycle, start SEO and content now.</p></div>
+        <div class="card"><span class="n">Big swings</span><p>Ship the ad-ops layer, sign the flagship partner (Matt McGarry), make the access call to open it to Scale.</p></div>
+        <div class="card lead-card"><span class="n">The experiment</span><p>Once the ingest ships (~day 45), split the cohort. Day 60: does the ingest arm move more deals? If not, pivot to brand-access.</p></div>
+      </div>
+      <p class="muted reveal">I run the cohort like continuous win/loss and test the plan's assumptions by day 14 and day 30. The experiment is what makes it falsifiable. I'm not here to confirm my own idea.</p>
+    </div>
+    <div class="footer"><span></span><span>18</span></div>
+  </section>
+
+  <!-- 19 CHANNELS, how I'd drive it -->
+  <section class="slide alt" aria-label="The channels">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>How I'd drive it</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">In-product has the reach. A flagship operator makes it <em>land.</em></h1>
+      <div class="tri stagger two">
+        <div class="card"><span class="n">In-product &middot; most reach</span><p>They're already in beehiiv. Trigger "run this deal on beehiiv" at the moment of intent: a pasted sponsor email, a milestone, an opened media-kit page.</p></div>
+        <div class="card lead-card"><span class="n">Creators and founder-led</span><p>Matt McGarry runs Newsletter Operator and teaches selling direct, the operator who teaches it running it in public. Tyler's own Big Desk Energy already posts direct-deal revenue to this audience. Tom Alder, 55k and over $500k in direct, is the proof.</p></div>
+        <div class="card"><span class="n">Community and events</span><p>Launch beta in the hiiv, beehiiv's own operator Slack, run a BYOD Office Hours, and ride the Summer Release on 16 July. Then Inbox Collective and Growth In Reverse.</p></div>
+        <div class="card"><span class="n">Lifecycle and content</span><p>Lead with the outcome, earn more and keep your rate. Point your SEO engine at running and proving the deal.</p></div>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>19</span></div>
+  </section>
+
+  <!-- 20 EDUCATION, teach the job -->
+  <section class="slide" aria-label="Adoption as an education problem">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Educating the market</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">Adoption is an education problem. So I would teach the job, not announce the <em>feature.</em></h1>
+      <div class="tri stagger">
+        <div class="card"><span class="n">Diagnose first</span><p>Talk to non-adopters with the cohort. Is it the gate, discoverability, or skill. Most operators were never taught to sell direct, so teach the actual gap.</p></div>
+        <div class="card"><span class="n">Teach in product</span><p>An empty-state lesson at the moment of intent, when they paste a sponsor email. Under ninety seconds, the outcome, not a feature tour.</p></div>
+        <div class="card"><span class="n">Academy and proof</span><p>Short lessons: price it, kit it, pitch it, run it, prove it, plus templates that remove the blank page. The certified report becomes the case study that teaches the next.</p></div>
+      </div>
+      <p class="muted reveal">They have a support page and an intro video. That is documentation. I have built the education layer above it before: eBay's Ads Academy lifted seller ad performance around 30% and moved adoption. Same engine, now teaching creators to sell direct.</p>
+    </div>
+    <div class="footer"><span></span><span>20</span></div>
+  </section>
+
+  <!-- 21 THE ASSET (demo) -->
+  <section class="slide fin demo" aria-label="The produced asset">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Live demo</span></div>
+    <div class="slide-content">
+      <span class="demo-eyebrow reveal"><span class="d"></span>Built &amp; live</span>
+      <h1 class="demo-title reveal">I built the page that pulls the creator in, and the moment that keeps the <em>sponsor.</em></h1>
+      <div class="shotgrid reveal">
+        <a class="browser" href="https://ds-landing-page-omega.vercel.app" target="_blank" rel="noopener"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">ds-landing-page-omega.vercel.app</span></div><div class="scrollwin" style="max-height:32vh;"><img src="assets/landing-hero.png" alt="The marketing landing page" /></div></a>
+        <a class="browser" href="https://byod-media-kit.vercel.app" target="_blank" rel="noopener"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">byod-media-kit.vercel.app</span></div><div class="scrollwin" style="max-height:32vh;"><img src="assets/storefront-hero.png" alt="The verified media kit and certified report" /></div></a>
+      </div>
+      <span class="demo-cue reveal"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>Click either frame to open the live page</span>
+    </div>
+    <div class="footer"><span></span><span>21</span></div>
+  </section>
+
+  <!-- 22 METRICS -->
+  <section class="slide" aria-label="Success metrics">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Success metrics</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal">North star: MRR.</span>
+      <h1 class="reveal">Adoption is the leading number, and it drives <em>MRR.</em></h1>
+      <div class="band reveal" style="max-width:calc(100% - 104px);"><div class="punch" style="font-size:clamp(1.2rem,2.4vw,2rem);">Established creators who bring at least one external deal in, and the <em>share</em> of their deals they run on beehiiv.</div></div>
+      <div class="tri stagger" style="margin-top:0.2rem;">
+        <div class="card"><span class="n">Leading &middot; what I move</span><p>Deals brought in, kits published, in-product activation, segment awareness.</p></div>
+        <div class="card"><span class="n">Lagging &middot; the north star</span><p>Cohort MRR, Direct Sponsorships revenue, retention, new advertiser accounts.</p></div>
+        <div class="card"><span class="n">Day 30 / 60 / 90 &middot; what good looks like</span><ul style="margin:0.45rem 0 0;padding-left:1.05em;display:flex;flex-direction:column;gap:0.32rem;font-family:var(--sans);font-size:clamp(0.8rem,0.98vw,0.93rem);line-height:1.3;color:var(--gray-mid);"><li><b style="color:var(--ink);">Day 30</b> cohort live, kit and ingest in beta, baseline set</li><li><b style="color:var(--ink);">Day 60</b> two-arm read in, share rising</li><li><b style="color:var(--ink);">Day 90</b> a proven model, flagship public</li></ul></div>
+      </div>
+      <p class="muted reveal">Week one, I baseline what I can't see from outside: how many creators are eligible, the share that runs on beehiiv today (near zero), and segment awareness.</p>
+    </div>
+    <div class="footer"><span></span><span>22</span></div>
+  </section>
+
+  <!-- 23 EBAY -->
+  <section class="slide alt" aria-label="eBay credibility">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>I've done this before</span></div>
+    <div class="slide-content">
+      <h1 class="reveal">I've solved this before: <em>eBay.</em></h1>
+      <p class="lead reveal" style="max-width:68ch;">An under-used, high-value ad product stalls when you sell the capability, not the outcome. I positioned around the outcome, more sales, and drove adoption through a partner.</p>
+      <div class="statgrid reveal" style="gap:clamp(1.2rem,2.8vw,3rem);">
+        <div class="stat"><span class="big">50%</span><span class="cap">more sales</span><span class="sub2">A stat we pulled with the data team. It became our key proof for the positioning.</span></div>
+        <div class="stat"><span class="big">87%</span><span class="cap">CTR lift</span><span class="sub2">From outcome-led messaging, A/B tested.</span></div>
+        <div class="stat"><span class="big">108x</span><span class="cap">partner lift</span><span class="sub2">Advertiser daily spend from one ChannelAdvisor webinar.</span></div>
+        <div class="stat"><span class="big">$0&rarr;$180M</span><span class="cap">in ~2 years</span><span class="sub2">Four new ad products, 2,500 brands on platform.</span></div>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>23</span></div>
+  </section>
+
+  <!-- 24 THE MARKETING BRAIN -->
+  <section class="slide fin" aria-label="The marketing brain">
+    <div class="brain-stage" aria-hidden="true"><div class="glow-disc"></div><img class="cover-art" src="assets/marketing-brain-dark.png" alt="" /><canvas class="brain-canvas"></canvas></div>
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>How I built this</span></div>
+    <div class="slide-content" style="max-width:56%;position:relative;z-index:3;">
+      <span class="eyebrow reveal" style="color:#7FB0FF;">How I'd run the seat</span>
+      <h1 class="reveal">My marketing brain let me cover more ground, and spend the saved time on <em>judgment.</em></h1>
+      <ul class="points reveal" style="max-width:52ch;">
+        <li>Inside it sits my method, my voice, and the frameworks I judge with.</li>
+        <li>Outside it sits your live market, mined into sourced files: the two interviews, the hiiv community, your competitors, your ads, the live product and its API.</li>
+        <li>One brief in, every output back, each carrying a source or it doesn't ship.</li>
+      </ul>
+      <div class="band reveal"><div class="punch" style="font-size:clamp(1.15rem,2.3vw,1.9rem);">Same discipline as the product I'm pitching. Everything sourced, the <em>judgment mine.</em></div></div>
+    </div>
+    <div class="footer"><span></span><span>24</span></div>
+  </section>
+
+  <!-- 25 THE ASK -->
+  <section class="slide fin" aria-label="The ask">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>The ask</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal" style="color:#7FB0FF;">The ask</span>
+      <p class="bigline reveal" style="color:var(--cream);max-width:23ch;">90 days proves the <em>model.</em></p>
+      <ul class="points reveal" style="max-width:64ch;">
+        <li>Greenlight the ad-ops layer, the media kit and ingest first, then the sponsor account.</li>
+        <li>Make the access call to open it to Scale.</li>
+        <li>Back the cohort and sign the flagship partner.</li>
+      </ul>
+      <hr class="accent-bar reveal" />
+      <p class="lead sub reveal" style="max-width:62ch;">Do that, and your highest-value product becomes the system creators run their whole business on.</p>
+    </div>
+    <div class="footer"><span></span><span>25</span></div>
+  </section>
+
+  <!-- 26 THANK YOU -->
+  <section class="slide fin" aria-label="Thank you">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Thank you</span></div>
+    <div class="slide-content" style="align-items:flex-start;">
+      <p class="bigline reveal" style="color:var(--cream);max-width:24ch;">Thank you.</p>
+      <p class="lead sub reveal" style="max-width:52ch;">It's the problem I've solved before, and the work I want to do here.</p>
+      <p class="reveal" style="font-family: var(--sans);color:rgba(242,237,227,0.9);"><b style="color:#7FB0FF;">Will Mulholland</b> &middot; Bring Your Own Deals &middot; beehiiv Senior PMM</p>
+    </div>
+    <div class="footer"><span>intelligentgrowth.app</span><span>26</span></div>
+  </section>
+
+  <!-- 24 APPENDIX DIVIDER -->
+  <section class="slide divider" aria-label="Appendix">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Appendix</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal" style="color:#9DC0FF;">Appendix</span>
+      <p class="bigline reveal" style="color:var(--cream);max-width:22ch;">The detail, if you want <em>it.</em></p>
+      <p class="lead sub reveal" style="max-width:54ch;">Pulled up only if the conversation goes there. Tap any one to jump straight to it.</p>
+      <div class="apx-index reveal">
+        <button class="apx-btn" type="button" data-target="26"><span class="apx-n">A1</span> The full competitive table</button>
+        <button class="apx-btn" type="button" data-target="27"><span class="apx-n">A2</span> Owners, dates and budget</button>
+        <button class="apx-btn" type="button" data-target="28"><span class="apx-n">A3</span> Sources and honesty notes</button>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>A</span></div>
+  </section>
+
+  <!-- 25 APPENDIX: COMPETITIVE TABLE -->
+  <section class="slide" aria-label="Appendix competitive table">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Appendix &middot; competitive</span></div>
+    <div class="slide-content">
+      <h1 class="reveal" style="font-size:clamp(1.4rem,2.9vw,2.4rem);">Every tool sits outside the send. The last column is the only one that <em>holds.</em></h1>
+      <div class="stack reveal" style="max-width:118ch;">
+        <div class="row" style="background:var(--ink);color:var(--cream);"><span class="it" style="color:var(--cream);font-family: var(--sans);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;">What they use &middot; does well &middot; falls short</span><span class="vl" style="color:#9DC0FF;">where beehiiv wins</span></div>
+        <div class="row"><span class="it">A marketplace brings brands and books the deal, but reports self-reported or API numbers.</span><span class="vl">certifies the real clicks</span></div>
+        <div class="row"><span class="it">Notion and spreadsheets give a hand-built calendar, a record, not a system. Can't place, measure, or prove.</span><span class="vl">ingests + auto-reports</span></div>
+        <div class="row"><span class="it">A PDF or screenshots are the media kit and after-the-fact proof, but show whole-newsletter clicks, discounted.</span><span class="vl">per-placement, from the send</span></div>
+      </div>
+      <p class="muted reveal">Passionfroot is the strongest, and even reads your API. The line that holds is narrower: it sits outside the send.</p>
+    </div>
+    <div class="footer"><span></span><span>A1</span></div>
+  </section>
+
+  <!-- APPENDIX: OWNERS, DATES, BUDGET -->
+  <section class="slide" aria-label="Appendix owners dates budget">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Appendix &middot; run it</span></div>
+    <div class="slide-content">
+      <h1 class="reveal" style="font-size:clamp(1.4rem,2.9vw,2.4rem);">Who owns what, the gates, and the <em>budget.</em></h1>
+      <div class="shotwrap reveal" style="grid-template-columns:1fr 1fr;align-items:start;">
+        <div class="stack" style="max-width:none;">
+          <div class="row"><span class="it"><b>PMM</b>&nbsp;message, positioning, cohort, launch</span></div>
+          <div class="row"><span class="it"><b>Product</b>&nbsp;access call, ingest, sponsor account</span></div>
+          <div class="row"><span class="it"><b>Growth</b>&nbsp;lifecycle, in-product instrumentation</span></div>
+          <div class="row bonus"><span class="it"><b>Day 60 kill gate</b>&nbsp;two-arm read, go or pivot</span><span class="vl">PMM runs, Product calls</span></div>
+        </div>
+        <div class="stack" style="max-width:none;">
+          <div class="row"><span class="it"><b>Creator white-glove + flagship</b></span><span class="vl">$45k</span></div>
+          <div class="row"><span class="it"><b>Content and SEO</b></span><span class="vl">$30k</span></div>
+          <div class="row"><span class="it"><b>Paid pilot, test only</b></span><span class="vl">$20k</span></div>
+          <div class="row"><span class="it"><b>Events and community</b></span><span class="vl">$15k</span></div>
+          <div class="row"><span class="it"><b>Lifecycle and in-product</b></span><span class="vl">$10k</span></div>
+        </div>
+      </div>
+      <p class="muted reveal">Roughly $120k. Most of it funds people and slow channels that compound, not paid impressions.</p>
+    </div>
+    <div class="footer"><span></span><span>A2</span></div>
+  </section>
+
+  <!-- 28 APPENDIX: SOURCES -->
+  <section class="slide alt" aria-label="Appendix sources">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Appendix &middot; sources</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal">Sources and honesty notes</span>
+      <h1 class="reveal" style="font-size:clamp(1.4rem,2.9vw,2.4rem);">Every number has a source, or it's flagged to <em>validate.</em></h1>
+      <div class="deflist stagger">
+        <div class="d"><span class="dk">Creators</span><span class="dv">Two primary interviews, Isaac (120k) and Alex (70k), plus ~10,000 hiiv community messages.</span></div>
+        <div class="d"><span class="dk">The API check</span><span class="dv">developers.beehiiv.com exposes audience and verified-click stats to the key holder. No API call produces a sponsor-facing certified report on an externally-sourced deal.</span></div>
+        <div class="d"><span class="dk">Passionfroot</span><span class="dv">Verified media kit, calendar, external bookings, beehiiv API integration. 15% on sourced deals, ~5% brand-side on self-sourced.</span></div>
+        <div class="d"><span class="dk">eBay</span><span class="dv">$0 to $180M in ~2 years, 2,500 brands, 87% CTR lift, 108x partner lift. The 50% came from a stat we pulled with the data team, our key positioning proof.</span></div>
+        <div class="d"><span class="dk">Held until validated</span><span class="dv">Direct CPM, network CPM, and the $15k floor are sourced to Isaac and public terms. Strategic calls are recommendations.</span></div>
+      </div>
+    </div>
+    <div class="footer"><span></span><span>A3</span></div>
+  </section>
+
+  <!-- APPENDIX: WHERE I HAVE DONE THIS BEFORE -->
+  <section class="slide" aria-label="Appendix where I have done this before">
+    <div class="topbar"><span class="brand-mark">Will Mulholland</span><span>Appendix &middot; proof</span></div>
+    <div class="slide-content">
+      <span class="eyebrow reveal">Receipts on demand</span>
+      <h1 class="reveal" style="font-size:clamp(1.4rem,2.9vw,2.4rem);">Where I have done this <em>before.</em></h1>
+      <div class="deflist stagger" style="gap:clamp(0.4rem,0.8vw,0.7rem);max-width:none;">
+        <div class="d"><span class="dk">Educate a market</span><span class="dv">eBay Ads Academy and the Manus for Marketing course, around 26% adoption lift and 30% better ad performance. <a class="proof-link" href="https://campus.buildclub.ai/courses/manus-for-marketing-692f82a7f918f9c55d017ef4" target="_blank" rel="noopener">Open the course</a></span></div>
+        <div class="d"><span class="dk">Launch end to end</span><span class="dv">Blinq's HubSpot Marketplace launch, the customer email hit 3 to 9x the standard click rate. <a class="proof-link" href="https://intelligentgrowth.app/campaigns/hubspot/business-admins.html" target="_blank" rel="noopener">Open the campaign</a></span></div>
+        <div class="d"><span class="dk">Positioning</span><span class="dv">Prompt Cowboy Context Engineering, 2,000 to 55,000 weekly users in two months. <a class="proof-link" href="https://www.promptcowboy.ai/" target="_blank" rel="noopener">promptcowboy.ai</a></span></div>
+        <div class="d"><span class="dk">Build the asset, live</span><span class="dv">Blinq's pricing page built in Claude Code and still live, plus the two BYOD assets in this deck. <a class="proof-link" href="https://blinq.me/pricing" target="_blank" rel="noopener">Open the page</a></span></div>
+        <div class="d"><span class="dk">Competitive and battlecards</span><span class="dv">Blinq event lead capture, found the real competitor and rebuilt the battlecard, the CEO adopted the plan. <a class="proof-link" href="https://intelligentgrowth.app/work.html?key=ig-portfolio-2026" target="_blank" rel="noopener">See the case</a></span></div>
+        <div class="d"><span class="dk">Drive adoption, own the metric</span><span class="dv">Blinq lifecycle experiment, activation up 16% and referrals up 115% against control. <a class="proof-link" href="https://intelligentgrowth.app/campaigns/welcome-series/welcome-series-structure.html" target="_blank" rel="noopener">See the case</a></span></div>
+        <div class="d"><span class="dk">Partner-led flagship</span><span class="dv">eBay ChannelAdvisor webinar, 108x daily ad-spend lift and $250K attributed revenue. <a class="proof-link" href="https://share.descript.com/view/xCl12F8biX6?t=331" target="_blank" rel="noopener">Watch it</a></span></div>
+      </div>
+      <p class="muted reveal">Full portfolio at <a class="proof-link" href="https://intelligentgrowth.app/work.html?key=ig-portfolio-2026" target="_blank" rel="noopener">intelligentgrowth.app/work.html</a></p>
+    </div>
+    <div class="footer"><span></span><span>A4</span></div>
+  </section>
+
+</main>
+
+<nav class="section-progress hide-rail" id="sectionRail" data-theme="light" aria-label="Section roadmap">
+  <button class="section-marker" type="button" data-target="3"><span class="mn">01</span><span class="ml">Gap</span></button>
+  <button class="section-marker" type="button" data-target="6"><span class="mn">02</span><span class="ml">Who</span></button>
+  <button class="section-marker" type="button" data-target="10"><span class="mn">03</span><span class="ml">Pitch</span></button>
+  <button class="section-marker" type="button" data-target="15"><span class="mn">04</span><span class="ml">Plan</span></button>
+  <button class="section-marker" type="button" data-target="19"><span class="mn">05</span><span class="ml">Proof</span></button>
+  <button class="section-marker" type="button" data-target="23"><span class="mn">06</span><span class="ml">Ask</span></button>
+</nav>
+
+<div class="jump" id="jump">
+  <div class="jump-menu" id="jumpMenu" role="menu" aria-label="Jump to slide"></div>
+  <button class="jump-toggle" id="jumpToggle" type="button" aria-haspopup="true" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1.1"/><circle cx="3.5" cy="12" r="1.1"/><circle cx="3.5" cy="18" r="1.1"/></svg>
+    Jump
+  </button>
+  <button class="jump-return" id="jumpReturn" type="button" aria-label="Back to where I was">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+    Back
+  </button>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const fill = document.getElementById('progressFill');
+  let current = 0;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting && e.intersectionRatio >= 0.55) {
+        clearTimeout(e.target._outT);
+        if (!e.target.classList.contains('in')) e.target.classList.add('in');
+        current = slides.indexOf(e.target);
+        fill.style.width = ((current + 1) / slides.length * 100) + '%';
+        updateRail();
+      } else if (!e.isIntersecting) {
+        clearTimeout(e.target._outT);
+        e.target._outT = setTimeout(() => e.target.classList.remove('in'), 300);
+      }
+    });
+  }, { threshold: [0, 0.55] });
+  slides.forEach((s) => io.observe(s));
+
+  const rail = document.getElementById('sectionRail');
+  const railMarkers = rail ? [...rail.querySelectorAll('.section-marker')] : [];
+  // non-overlapping DOM-index ranges per section (0-based)
+  const RAIL_RANGES = [[3,5],[6,9],[10,14],[15,18],[19,22],[23,24]];
+  const APPENDIX_FROM = 25;
+  function updateRail(){
+    if(!rail) return;
+    const sl = slides[current];
+    const dark = sl && (sl.classList.contains('fin') || sl.classList.contains('cover') || sl.classList.contains('divider'));
+    rail.dataset.theme = dark ? 'dark' : 'light';
+    rail.classList.toggle('hide-rail', current <= 2 || current >= APPENDIX_FROM);
+    railMarkers.forEach((m,i)=>{ const r=RAIL_RANGES[i]; m.classList.toggle('active', !!r && current>=r[0] && current<=r[1]); });
+    if (window.__jumpSync) window.__jumpSync();
+  }
+  railMarkers.forEach(m=>m.addEventListener('click',()=>{ const t=parseInt(m.dataset.target,10); if(!isNaN(t)&&slides[t]) slides[t].scrollIntoView({behavior:'smooth'}); }));
+  updateRail();
+
+  let lastNav = 0;
+  document.addEventListener('keydown', (e) => {
+    const now = performance.now();
+    if (['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); if (now - lastNav < 350) return; lastNav = now; if (current < slides.length - 1) slides[current + 1].scrollIntoView({ behavior: 'smooth' }); }
+    else if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); if (now - lastNav < 350) return; lastNav = now; if (current > 0) slides[current - 1].scrollIntoView({ behavior: 'smooth' }); }
+    else if (e.key === 'Home') { e.preventDefault(); slides[0].scrollIntoView({ behavior: 'smooth' }); }
+    else if (e.key === 'End') { e.preventDefault(); slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' }); }
+  });
+  slides[0].classList.add('in');
+  fill.style.width = (1 / slides.length * 100) + '%';
+
+  // ===== Presenter-view sync (postMessage works on file:// without flags) =====
+  window.addEventListener('message', (e) => {
+    const d = e.data; if (!d || d.type !== 'gotoSlide') return;
+    const i = d.i; if (typeof i === 'number' && slides[i]) slides[i].scrollIntoView({ behavior: 'auto' });
+  });
+
+  // ===== Jump / quick-nav (present mode) =====
+  (function () {
+    const NAV = [
+      { g: 'Open', items: [[0,'Cover'],[1,'Cold open · eBay'],[2,'The research'],[3,'Community gaps']] },
+      { g: 'The gap', items: [[4,'The money gap'],[5,'The wall'],[6,'Built vs proposed'],[7,'Who it is for'],[8,'Competitive'],[9,'The objection']] },
+      { g: 'The pitch', items: [[10,'Without / with'],[11,'Positioning + message'],[12,'Three benefits'],[13,'One change + moat'],[14,'The flywheel'],[15,'Economics']] },
+      { g: 'The plan', items: [[16,'90-day plan'],[17,'The cohort + bets'],[18,'How I’d drive it'],[19,'Educating the market']] },
+      { g: 'Proof', items: [[20,'Live demo'],[21,'Metrics'],[22,'eBay'],[23,'How I built it']] },
+      { g: 'Close', items: [[24,'The ask'],[25,'Thank you']] },
+      { g: 'Appendix', items: [[26,'Appendix index'],[27,'A1 · Competitive table'],[28,'A2 · Owners, dates and budget'],[29,'A3 · Sources'],[30,'A4 · Where I have done this before']] },
+    ];
+    const jump = document.getElementById('jump');
+    const menu = document.getElementById('jumpMenu');
+    const toggle = document.getElementById('jumpToggle');
+    if (!jump || !menu || !toggle) return;
+    let returnTo = null;
+    const backBtn = document.createElement('button');
+    backBtn.className = 'jump-back'; backBtn.type = 'button';
+    backBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Back to where I was';
+    backBtn.style.display = 'none';
+    menu.appendChild(backBtn);
+    NAV.forEach((sec) => {
+      const h = document.createElement('div'); h.className = 'jump-grp'; h.textContent = sec.g; menu.appendChild(h);
+      sec.items.forEach(([i, label]) => {
+        const b = document.createElement('button'); b.className = 'jump-item'; b.type = 'button'; b.dataset.i = i;
+        b.innerHTML = '<span class="ji-n">' + String(i + 1).padStart(2, '0') + '</span>' + label;
+        b.addEventListener('click', () => go(i, true));
+        menu.appendChild(b);
+      });
+    });
+    const items = [...menu.querySelectorAll('.jump-item')];
+    function go(i, remember) { if (!slides[i]) return; if (remember && i !== current) returnTo = current; slides[i].scrollIntoView({ behavior: 'smooth' }); close(); }
+    function open() { jump.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); const back = (returnTo !== null && returnTo !== current); backBtn.style.display = back ? 'flex' : 'none'; items.forEach(b => b.classList.toggle('cur', +b.dataset.i === current)); if (back) { menu.scrollTop = 0; } else { const cur = menu.querySelector('.jump-item.cur'); if (cur) cur.scrollIntoView({ block: 'center' }); } }
+    function close() { jump.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', (e) => { e.stopPropagation(); jump.classList.contains('open') ? close() : open(); });
+    backBtn.addEventListener('click', () => { if (returnTo !== null) { const t = returnTo; returnTo = null; go(t, false); } });
+    document.addEventListener('click', (e) => { if (!jump.contains(e.target)) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    document.querySelectorAll('.apx-btn').forEach((btn) => { btn.addEventListener('click', () => { const t = parseInt(btn.dataset.target, 10); if (!isNaN(t) && slides[t]) go(t, true); }); });
+    const jumpReturn = document.getElementById('jumpReturn');
+    function syncReturn() { if (jumpReturn) jumpReturn.classList.toggle('show', returnTo !== null && returnTo !== current); }
+    if (jumpReturn) jumpReturn.addEventListener('click', () => { if (returnTo !== null) { const t = returnTo; returnTo = null; if (slides[t]) slides[t].scrollIntoView({ behavior: 'smooth' }); syncReturn(); } });
+    window.__jumpSync = syncReturn;
+  })();
+
+  // ===== Cinematic particle brain (cover + marketing-brain slide) =====
+  (function () {
+    document.querySelectorAll('.brain-stage').forEach(initBrain);
+    function initBrain(stage) {
+      const canvas = stage.querySelector('.brain-canvas'); if (!canvas) return;
+      const imgEl = stage.querySelector('.cover-art');
+      let ctx; try { ctx = canvas.getContext('2d'); } catch (e) { ctx = null; } if (!ctx) return;
+      const slideEl = stage.closest('.slide');
+      const img = new Image(); img.decoding = 'async'; let started = false;
+      img.onload = () => { try { build(); } catch (e) {} };
+      img.src = (imgEl && imgEl.getAttribute('src')) || 'assets/marketing-brain-dark.png';
+      function build() {
+        if (started) return;
+        const S = 220; const off = document.createElement('canvas'); off.width = S; off.height = S;
+        const octx = off.getContext('2d', { willReadFrequently: true }); octx.drawImage(img, 0, 0, S, S);
+        let data; try { data = octx.getImageData(0, 0, S, S).data; } catch (e) { return; }
+        const seeds = [];
+        for (let y=0;y<S;y+=2){ for (let x=0;x<S;x+=2){ const idx=(y*S+x)*4; const lum=(data[idx]+data[idx+1]+data[idx+2])/3; if (lum>60 && Math.random()<0.5) seeds.push({nx:x/S,ny:y/S}); } }
+        if (seeds.length < 100) return;
+        const MAX=260; const nodes=[]; const step=Math.max(1,Math.floor(seeds.length/MAX));
+        for (let i=0;i<seeds.length;i+=step) nodes.push(seeds[i]);
+        const dpr=Math.min(window.devicePixelRatio||1,2); let W=0,H=0,scale=0,ox=0,oy=0;
+        function layout(){ const r=stage.getBoundingClientRect(); W=r.width;H=r.height; canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr); canvas.style.width=W+'px';canvas.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); const box=Math.min(W,H)*0.74; scale=box; ox=(W-box)/2; oy=(H-box)/2; for(const n of nodes){ n.x=ox+n.nx*scale; n.y=oy+n.ny*scale; } buildEdges(); }
+        let edges=[]; function buildEdges(){ edges=[]; const md=Math.min(W,H)*0.11, md2=md*md; for(let i=0;i<nodes.length;i++){ let l=0; for(let j=i+1;j<nodes.length&&l<3;j++){ const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y; if(dx*dx+dy*dy<md2){ edges.push([i,j]); l++; } } } }
+        const pulses=[]; function spawn(){ if(!edges.length||pulses.length>=18)return; const e=edges[(Math.random()*edges.length)|0]; pulses.push({a:e[0],b:e[1],t:0,sp:0.012+Math.random()*0.02}); }
+        const streams=[]; function sstream(dir){ if(streams.length>=60)return; const tg=nodes[(Math.random()*nodes.length)|0]; if(dir==='in') streams.push({dir,x:-10,y:H*(0.15+Math.random()*0.7),tx:tg.x,ty:tg.y,t:0,sp:0.006+Math.random()*0.006}); else streams.push({dir,x:tg.x,y:tg.y,tx:W+10,ty:H*(0.15+Math.random()*0.7),t:0,sp:0.006+Math.random()*0.006}); }
+        layout(); let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(layout,150);});
+        started=true; stage.classList.add('live');
+        let last=performance.now(), acc=0, sacc=0, running=true;
+        function frame(now){ if(!running)return; const dt=Math.min(40,now-last); last=now; if(slides[current]!==slideEl){ requestAnimationFrame(frame); return; }
+          acc+=dt; sacc+=dt; while(acc>130){spawn();acc-=130;} while(sacc>90){sstream(Math.random()<0.5?'in':'out');sacc-=90;}
+          ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
+          ctx.lineWidth=1; ctx.strokeStyle='rgba(37,99,235,0.10)'; ctx.beginPath();
+          for(let k=0;k<edges.length;k++){ const a=nodes[edges[k][0]],b=nodes[edges[k][1]]; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); } ctx.stroke();
+          const tg=now*0.0016;
+          for(let i=0;i<nodes.length;i++){ const n=nodes[i]; const tw=0.55+0.45*Math.sin(tg+i*0.7); const rad=1.3+tw*1.1; const cream=n.nx>0.5; ctx.fillStyle=cream?'rgba(242,237,227,'+(0.35+tw*0.4)+')':'rgba(96,150,255,'+(0.4+tw*0.45)+')'; ctx.beginPath(); ctx.arc(n.x,n.y,rad,0,6.283); ctx.fill(); }
+          for(let i=pulses.length-1;i>=0;i--){ const p=pulses[i]; p.t+=p.sp*(dt/16.7); if(p.t>=1){pulses.splice(i,1);continue;} const a=nodes[p.a],b=nodes[p.b]; const x=a.x+(b.x-a.x)*p.t,y=a.y+(b.y-a.y)*p.t; const g=ctx.createRadialGradient(x,y,0,x,y,7); g.addColorStop(0,'rgba(160,200,255,0.95)'); g.addColorStop(1,'rgba(160,200,255,0)'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,7,0,6.283); ctx.fill(); }
+          for(let i=streams.length-1;i>=0;i--){ const s=streams[i]; s.t+=s.sp*(dt/16.7); if(s.t>=1){streams.splice(i,1);continue;} const e=s.t*s.t*(3-2*s.t); const x=s.x+(s.tx-s.x)*e,y=s.y+(s.ty-s.y)*e; const cream=s.dir==='out'; const col=cream?'242,237,227':'120,170,255'; const a=Math.sin(s.t*Math.PI); const g=ctx.createRadialGradient(x,y,0,x,y,5); g.addColorStop(0,'rgba('+col+','+(0.9*a)+')'); g.addColorStop(1,'rgba('+col+',0)'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,5,0,6.283); ctx.fill(); }
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+        window.addEventListener('pagehide',()=>{running=false;});
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

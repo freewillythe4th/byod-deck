@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32" fill="none">
+  <!-- Sponsy brand mark: nested square icon + wordmark text -->
+  <g transform="translate(0, 4)">
+    <path d="M21,1H3A2,2 0 0,0 1,3V21A2,2 0 0,0 3,23H21A2,2 0 0,0 23,21V3A2,2 0 0,0 21,1M21,21H3V3H21V21M19,19H5V5H19V19Z"
+          fill="#0f172a" transform="scale(1.1) translate(-0.5, -0.5)"/>
+  </g>
+  <text x="30" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#0f172a">Sponsy</text>
+</svg>
